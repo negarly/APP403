@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>vecteezy.jpg</file>
+        <file>vecteezy_alien-space-planet-landscape-with-purple-rocks_20597858.jpg</file>
+    </qresource>
+</RCC>

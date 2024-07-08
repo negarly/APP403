@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>signup</class>
+ <widget class="QMainWindow" name="signup">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>875</width>
+    <height>590</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>150</y>
+      <width>341</width>
+      <height>221</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="title">
+     <string>Sign Up</string>
+    </property>
+    <widget class="QLineEdit" name="useredit">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>40</y>
+       <width>151</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(0, 0, 0);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="passedit">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>90</y>
+       <width>151</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(0, 0, 0);</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="eedit">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>140</y>
+       <width>151</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(0, 0, 0);</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="username">
+     <property name="geometry">
+      <rect>
+       <x>32</x>
+       <y>40</y>
+       <width>81</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#a1a1a1;&quot;&gt;User Name&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="password">
+     <property name="geometry">
+      <rect>
+       <x>32</x>
+       <y>90</y>
+       <width>81</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#b6b6b6;&quot;&gt;Password&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="email">
+     <property name="geometry">
+      <rect>
+       <x>32</x>
+       <y>140</y>
+       <width>91</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#b9b9b9;&quot;&gt;E-Mail&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="signupButton">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>460</y>
+      <width>441</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(247, 227, 254);</string>
+    </property>
+    <property name="text">
+     <string>Sign Up</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>-30</x>
+      <y>-100</y>
+      <width>931</width>
+      <height>731</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>731</width>
+      <height>641</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">image: url(:/new/prefix1/vecteezy.jpg);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <zorder>label</zorder>
+   <zorder>signupButton</zorder>
+   <zorder>groupBox</zorder>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>875</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

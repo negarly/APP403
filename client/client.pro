@@ -10,18 +10,34 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    NumberQuestion.cpp \
+    gamewindow.cpp \
     main.cpp \
     mainwindow.cpp \
+    multiplechoicequestion.cpp \
+    question.cpp \
+    questiondialog.cpp \
+    questionfactory.cpp \
+    shortquestion.cpp \
     signup.cpp \
     topicwindow.cpp
 
 HEADERS += \
+    NumberQuestion.h \
+    gamewindow.h \
     mainwindow.h \
+    multiplechoicequestion.h \
+    question.h \
+    questiondialog.h \
+    questionfactory.h \
+    shortquestion.h \
     signup.h \
     topicwindow.h
 
 FORMS += \
+    gamewindow.ui \
     mainwindow.ui \
+    questiondialog.ui \
     signup.ui \
     topicwindow.ui
 

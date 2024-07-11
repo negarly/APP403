@@ -9,6 +9,10 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 #include<QString>
+#include <QMetaObject>
+#include <QRegularExpression>
+#include <QJsonArray>
+
 
 namespace Ui {
 class signup;
@@ -26,17 +30,21 @@ signals:
     void signUpComplete(const QString& username);
 
 private slots:
-    void onConnected();
-    void onReadyRead();
-
 
     void on_signupButton_clicked();
+    void socket_connected();
+    void socket_disconnected();
+    void readSocketData();
+    void socket_error(QAbstractSocket::SocketError error);
 
 private:
     Ui::signup *ui;
     QTcpSocket *socket;
     topicwindow *_topicwindow;
 
+protected:
+    void showEvent(QShowEvent *event) override;
+    void closeEvent(QCloseEvent *event) override;
 };
 
 #endif // SIGNUP_H

@@ -2,5 +2,12 @@
     <qresource prefix="/new/prefix1">
         <file>vecteezy.jpg</file>
         <file>vecteezy_alien-space-planet-landscape-with-purple-rocks_20597858.jpg</file>
+        <file>../../Downloads/vecteezy_hologram-podium-futuristic-circle-blue-vector_8450118.jpg</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>../../Downloads/vecteezy_futuristic-sci-fi-glowing-hud-element-and-particle_5550030.jpg</file>
+        <file>../../Downloads/Abstract_background_generated.jpg</file>
+        <file>../../Downloads/Abstract_hologram_hi-tech_background_generated.jpg</file>
+        <file>../../Downloads/3D_cube_generated.jpg</file>
     </qresource>
 </RCC>

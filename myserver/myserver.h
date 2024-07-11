@@ -9,7 +9,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QTextStream>
-
+#include <QList>
 #include <QFile>/*
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -36,11 +36,15 @@ private slots:
 
 private:
     // Ui::MainWindow *ui;
-     QFile *userfile;
+    QFile *userfile;
     // QFile *gamestatsfile;
+    QList<QTcpSocket *> clients;
+    int numPlayersReady;
 
-     bool saveuser(const QByteArray &data);
+    void broadcast(const QString &message);
+    bool saveuser(const QByteArray &data);
     // bool saveGameStats(const QJsonObject &gameStats);
+
 
 };
 #endif // MYSERVER_H

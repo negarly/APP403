@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent,signup *_signup)
     , ui(new Ui::MainWindow)
     ,_signup(_signup)
 {
+
     ui->setupUi(this);
 }
 
@@ -15,6 +16,7 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
 
 void MainWindow::on_signup_clicked()
 {

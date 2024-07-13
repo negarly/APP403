@@ -19,11 +19,15 @@
 #include <QFont>
 #include <random>
 #include <QtGlobal>
+#include <algorithm>
 
 gamewindow::gamewindow(QWidget *parent)
     : QMainWindow(parent), currentBackgroundIndex(0)
     , ui(new Ui::gamewindow)
     ,currentPlayer(1)
+,questionsFetchedCount(0)
+,      networkManager(new QNetworkAccessManager(this))
+
 {
     socket = new QTcpSocket(this);
 
@@ -89,11 +93,9 @@ gamewindow::gamewindow(QWidget *parent)
         }
     }
 
-    networkManager = new QNetworkAccessManager(this);
     fetchQuestions();
 
-    connect(networkManager, &QNetworkAccessManager::finished, this, &gamewindow::onQuestionsFetched);
-
+     connect(networkManager, &QNetworkAccessManager::finished, this, &gamewindow::onQuestionsFetched);
 }
 
 void gamewindow::showEvent(QShowEvent *event) {
@@ -111,17 +113,30 @@ void gamewindow::closeEvent(QCloseEvent *event) {
     QMainWindow::closeEvent(event);
 
 }
+void  gamewindow::fetchQuestions() {/*
+QString apiUrl ="https://questionbank.liara.run/api/RmF0ZW1lIGhvc2VpbmksbmVnYXIgZWx5YXNpLGlvRGY3b0hFNjY0bA/question?type=number";
+    for (int i=0;i<4;i++) {
+QNetworkRequest request(QUrl("https://questionbank.liara.run/api/RmF0ZW1lIGhvc2VpbmksbmVnYXIgZWx5YXNpLGlvRGY3b0hFNjY0bA/question?type=number"));
+        networkManager->get(request);
+ }for (int i=0;i<4;i++) {
+QNetworkRequest request2(QUrl("https://questionbank.liara.run/api/RmF0ZW1lIGhvc2VpbmksbmVnYXIgZWx5YXNpLGlvRGY3b0hFNjY0bA/question?type=multiple"));
+     networkManager->get(request2);
+ }
+for (int i=0;i<4;i++) {
+QNetworkRequest request3(QUrl("https://questionbank.liara.run/api/RmF0ZW1lIGhvc2VpbmksbmVnYXIgZWx5YXNpLGlvRGY3b0hFNjY0bA/question?type=short"));
+    networkManager->get(request3);}
 
 
-void gamewindow::fetchQuestions() {
+qDebug() << "Sending request to:" << apiUrl;*/
 
-    QString apiUrl ="https://questionbank.liara.run/api/RmF0ZW1lIGhvc2VpbmksbmVnYXIgZWx5YXNpLGlvRGY3b0hFNjY0bA/question?type=number";
-    QNetworkRequest request(QUrl("https://questionbank.liara.run/api/RmF0ZW1lIGhvc2VpbmksbmVnYXIgZWx5YXNpLGlvRGY3b0hFNjY0bA/question?type=number"));
-    qDebug() << "Sending request to:" << apiUrl;
 
-    networkManager->get(request);
+
+        QString apiUrl ="https://questionbank.liara.run/api/RmF0ZW1lIGhvc2VpbmksbmVnYXIgZWx5YXNpLGlvRGY3b0hFNjY0bA/question?type=number";
+        QNetworkRequest request(QUrl("https://questionbank.liara.run/api/RmF0ZW1lIGhvc2VpbmksbmVnYXIgZWx5YXNpLGlvRGY3b0hFNjY0bA/question?type=number"));
+        QNetworkReply *reply = networkManager->get(request);
+
+        qDebug() << "Sending request to:" << apiUrl;    networkManager->get(request);
 }
-
 void gamewindow::onQuestionsFetched(QNetworkReply *reply) {
     if (reply->error() == QNetworkReply::NoError) {
         QByteArray response = reply->readAll();
@@ -129,7 +144,7 @@ void gamewindow::onQuestionsFetched(QNetworkReply *reply) {
 
         QJsonParseError parseError;
         QJsonDocument jsonDoc = QJsonDocument::fromJson(response, &parseError);
-        if (jsonDoc.isNull()) {
+        if (jsonDoc.isNull() || !jsonDoc.isObject()) {
             qDebug() << "Failed to parse JSON response:" << parseError.errorString();
             QMessageBox::critical(this, "Error", "Failed to parse JSON response: " + parseError.errorString());
             reply->deleteLater();
@@ -137,17 +152,50 @@ void gamewindow::onQuestionsFetched(QNetworkReply *reply) {
         }
         QJsonObject questionObject = jsonDoc.object();
         qDebug()<<questionObject;
+        if (reply->url().toString().contains("number")) {
+            questionsNumber++;
+        } else if (reply->url().toString().contains("short")) {
+            questionsShort++;
+        } else if (reply->url().toString().contains("multiple")) {
+            questionsMultiple++;
+        }
 
         Question *question = QuestionFactory::createQuestion(questionObject);
         qDebug()<<"the question is:"<<question;
+        QString type = question->getQuestionType();
+        qDebug()<<"------------------------------------------------------------------";
 
         if (question) {
             questions.append(question);
         }
 
-    } else {
-        QMessageBox::warning(this, "Error", "Failed to fetch questions from the server.");
+        // qDebug()<<"questions.size()"<<questions.size();
+
+        // if(/*multiplebool&&shortbool&&numberboolquestionsFetchedCount == 3*/questions.size() >= 9){
+        //     if( questionsNumber >= 3 && questionsShort >= 3 && questionsMultiple >= 3){
+        //     // if (questions.size() < 9) {
+        //     //     qDebug()<<"Not enough questions to start the game.";
+        //     //     return;
+        //     // }
+
+        //     std::random_shuffle(questions.begin(), questions.end());
+        //     // int index = rand() % questions.size();
+        //     qDebug()<<" ------------------------------------------------------------------------------";
+        //     for (int i = 0; i < 9; ++i) {
+        //         if (i < questions.size()){
+        //         // Question *buttomquestion = questions[i];
+        //         buttons[i]->setProperty("question",questions[i]->getQuestionText());
+        //         // qDebug()<<"number question :"<<buttomquestion->getQuestionText();
+        //          qDebug()<<"number question :"<<questions[i]->getQuestionText();
+
+        //         }
+        //     }
+        //     }
+        // }
     }
+    else {
+        QMessageBox::warning(this, "Error", "Failed to fetch questions from the server.");
+         }
     reply->deleteLater();
 
 }
@@ -161,17 +209,39 @@ void gamewindow::handleButtonClick() {
             return;
         }
         button->setText("...");
-
         // Select a question randomly
+        // int index = rand() % questions.size();
+        int buttonIndex = -1;
+        for (int i = 0; i < 9; ++i) {
+            if (buttons[i] == button) {
+                buttonIndex = i;
+                break;
+            }
+        }
         int index = rand() % questions.size();
         Question *question = questions[index];
+        QJsonObject json;
+
+        // Question *question = questions[buttonIndex];
         questionDialog dialog(*question, this);
         if (dialog.exec() == QDialog::Accepted) {
             button->setText(currentPlayer == 1 ? "X" : "O");
+            if(currentPlayer == 1){
+                json["command"] = "checkWin";
+                json["buttonId"] = buttonIndex;
+                json["playerId"] = "Player1";
+            }
+            if(currentPlayer == 2){
+                json["command"] = "checkWin";
+                json["buttonId"] = buttonIndex;
+                json["playerId"] = "Player1";
+            }
             button->setEnabled(false);
-
-            QByteArray data = QString::number(gridLayout->indexOf(button)).toUtf8();
-            tcpSocket->write(data);
+            QJsonDocument doc(json);
+            QByteArray jsonData = doc.toJson();
+            socket->write(jsonData);
+            // QByteArray data = QString::number(gridLayout->indexOf(button)).toUtf8();
+            // tcpSocket->write(data);
 
             currentPlayer = (currentPlayer == 1) ? 2 : 1;
         }

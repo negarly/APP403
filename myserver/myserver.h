@@ -44,6 +44,10 @@ private:
     void broadcast(const QString &message);
     bool saveuser(const QByteArray &data);
     // bool saveGameStats(const QJsonObject &gameStats);
+    QMap<int, QString> buttonOwner;
+    bool checkWin(const QString &playerId);
+
+
 
 
 };

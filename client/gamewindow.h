@@ -33,6 +33,7 @@ class gamewindow : public QMainWindow
 
 public:
     explicit gamewindow(QWidget *parent = nullptr);
+    void fetchQuestions(const QString &url);
 
     ~gamewindow();
 private slots:
@@ -58,13 +59,18 @@ private:
     QGridLayout *existingLayout;
 
     QPushButton *buttons[9];
+    int questionsFetchedCount;
+
     QVector<Question*> questions;
     QTcpSocket *tcpSocket;
     QNetworkAccessManager *networkManager;
     int currentPlayer;
 
-    void fetchQuestions();
+     void fetchQuestions();
+
     void handleQuestion(const QJsonObject &jsonObj);
+    int questionsNumber, questionsShort, questionsMultiple;
+     QMap<QString, QString> buttonOwner;
 
 protected:
     void showEvent(QShowEvent *event) override;

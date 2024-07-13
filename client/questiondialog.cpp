@@ -28,9 +28,9 @@ questionDialog::questionDialog(Question &question, QWidget *parent)
     ui->setupUi(this);
     connect(timer, &QTimer::timeout, this, &questionDialog::updateProgressBar);
     connect(timer, &QTimer::timeout, this, &questionDialog::timeout);
-    timer->start(1000);
+    timer->start(1000);/*
      ui->categorylabel->setFont(QFont("Tahoma", 12));
-     ui->categorylabel->setLayoutDirection(Qt::RightToLeft);
+     ui->categorylabel->setLayoutDirection(Qt::RightToLeft);*/
      ui->categorylabel->setText(question.getCategory());
 
     QVBoxLayout *layout = new QVBoxLayout(this);
@@ -86,6 +86,7 @@ void questionDialog::checkanswer() {
 
     } else {
         QMessageBox::warning(this, "Incorrect", "The answer is incorrect. Try again.");
+
     }
 }
 questionDialog::~questionDialog()

@@ -125,7 +125,29 @@ void myserver::handleRequest()
 
         }
     }
+    //------------CHECKFORWIN-------------
 
+    if(jsonObj["command"] == "checkWin"){
+        if (jsonObj.contains("buttonId") && jsonObj.contains("playerId")) {
+            int buttonId = jsonObj.value("buttonId").toInt();
+            QString playerId = jsonObj.value("playerId").toString();
+
+        buttonOwner.insert(buttonId, playerId);
+            if (checkWin(playerId)) {
+                qDebug() << "Player" << playerId << "wins!";
+                QJsonObject userObject = jsonObj["user"].toObject();
+
+                userObject["buttonId"] =buttonId ;
+                userObject["playerId"] =playerId ;
+                QJsonDocument updatedJsonDoc(userObject);
+                QByteArray updatedData = updatedJsonDoc.toJson();
+                saveuser(updatedData);
+
+            }
+
+
+         }
+    }
 
 }
 
@@ -156,4 +178,21 @@ void myserver::broadcast(const QString &message)
     {
         client->write(message.toUtf8());
     }
+}
+
+bool myserver::checkWin(const QString &playerId)
+{
+    // Win conditions for Tic-Tac-Toe
+    if ((buttonOwner.value(1) == playerId && buttonOwner.value(2) == playerId && buttonOwner.value(3) == playerId) ||
+        (buttonOwner.value(4) == playerId && buttonOwner.value(5) == playerId && buttonOwner.value(6) == playerId) ||
+        (buttonOwner.value(7) == playerId && buttonOwner.value(8) == playerId && buttonOwner.value(9) == playerId) ||
+        (buttonOwner.value(1) == playerId && buttonOwner.value(4) == playerId && buttonOwner.value(7) == playerId) ||
+        (buttonOwner.value(2) == playerId && buttonOwner.value(5) == playerId && buttonOwner.value(8) == playerId) ||
+        (buttonOwner.value(3) == playerId && buttonOwner.value(6) == playerId && buttonOwner.value(9) == playerId) ||
+        (buttonOwner.value(1) == playerId && buttonOwner.value(5) == playerId && buttonOwner.value(9) == playerId) ||
+        (buttonOwner.value(3) == playerId && buttonOwner.value(5) == playerId && buttonOwner.value(7) == playerId)) {
+        return true;
+    }
+
+    return false;
 }
